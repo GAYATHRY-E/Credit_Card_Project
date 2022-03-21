@@ -11,13 +11,12 @@
 package com.training.project.service;
 
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.Optional;
 
-import org.jvnet.hk2.annotations.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import com.training.project.model.CardHistoryModel;
@@ -57,10 +56,10 @@ public class CreditCardService {
 		CreditCardModel creditCardModel=new CreditCardModel();
 		if(userRegister.getSalary()>20000 && userRegister.getAge()>18) 
 		{	
-		PasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
+		Base64.Encoder encoder = Base64.getEncoder();
 		creditCardModel.setUsername(userRegister.getUsername());
 		creditCardModel.setCreditCardNumber(userRegister.getAccountnumber()+10);
-		creditCardModel.setPassword(passwordEncoder.encode(userRegister.getUsername().substring(0, 3).concat("123")));
+		creditCardModel.setPassword(encoder.encodeToString((userRegister.getUsername().substring(0, 3).concat("123")).getBytes()));
 		creditCardModel.setStatus("unblock");
 		creditCardModel.setCreditLimit(30000);
 		creditCardRepository.save(creditCardModel);

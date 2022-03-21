@@ -1,27 +1,26 @@
-package com.training.project.test.service;
+package com.training.project.service;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.training.project.model.CreditCardModel;
 import com.training.project.model.UserRegisterModel;
+import com.training.project.repository.CardHistoryRepository;
 import com.training.project.repository.CreditCardRepository;
 import com.training.project.repository.UserRepository;
-import com.training.project.service.CreditCardService;
-
-import junit.framework.Assert;
-
 
 @RunWith(MockitoJUnitRunner.class)
-public class CreditCardServiceTest {
-	
+public class TestCreditCardService {
 	@InjectMocks
 	private CreditCardService creditCardService;
 
@@ -30,7 +29,12 @@ public class CreditCardServiceTest {
 
 	@Mock
 	private CreditCardRepository creditCardRepository;
-
+	@Mock
+	CardHistoryRepository cardHistoryRepository;
+    @Before
+     public void setUp() {
+    	 MockitoAnnotations.initMocks(this);
+     }
 	@Test
 	public void testCreateCard(){
 		
@@ -40,9 +44,9 @@ public class CreditCardServiceTest {
 		 user.setAge(21);
 		 user.setPhonenumber(321);
 		 user.setSalary(60000); 
-		 creditCardService.createCard(user);
+		 CreditCardModel card=creditCardService.createCard(user);
 		 //Mockito.when(creditCardService.createCard(Mockito.any())).thenReturn(creditCard);
-		 //Assert.assertEquals(card.getUsername(),user.getUsername());	 
+		 Assert.assertEquals(card.getUsername(),user.getUsername());	 
 	}
 	@Test
 	   public void testUnblockCard(){
@@ -103,7 +107,7 @@ public class CreditCardServiceTest {
 		Optional<CreditCardModel> optionCard=Optional.of(card);
 		Mockito.when(creditCardRepository.findById(Mockito.any())).thenReturn(optionCard);
 		CreditCardModel creditCardModel=creditCardService.acceptDues(card.getCreditCardNumber(),amount);
-		Assert.assertEquals(creditCardModel.getCreditLimit(),31000);	
+		Assert.assertEquals(creditCardModel.getCreditLimit(),32000);	
 			
 		}
 	@Test
@@ -122,8 +126,6 @@ public class CreditCardServiceTest {
 		Assert.assertEquals(cardStatus,"cancel");	
 			
 		}
-		
-		
 		
 
 }
