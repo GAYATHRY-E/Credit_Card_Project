@@ -53,7 +53,6 @@ public class TestCreditCardController {
 		card.setStatus("block");
 		card.setCreditLimit(30000);
 		Optional<CreditCardModel> optionCard=Optional.of(card);
-	//	Mockito.when(creditCardRepository.findById(Mockito.any())).thenReturn(optionCard);
 		Mockito.when(service.unBlockCard(Mockito.anyInt())).thenReturn(card.getStatus());
 		String cardStatus =controller.unBlockCard(card.getCreditCardNumber());
 		Assert.assertEquals(cardStatus, "block");
@@ -71,7 +70,6 @@ public class TestCreditCardController {
 		card.setStatus("unblock");
 		card.setCreditLimit(30000);
 		Optional<CreditCardModel> optionCard=Optional.of(card);
-	//	Mockito.when(creditCardRepository.findById(Mockito.any())).thenReturn(optionCard);
 		Mockito.when(service.blockCard(Mockito.anyInt())).thenReturn(card.getStatus());
 		String cardStatus =controller.blockCard(card.getCreditCardNumber());
 		Assert.assertEquals(cardStatus, "unblock");
@@ -89,7 +87,6 @@ public class TestCreditCardController {
 		card.setStatus("unblock");
 		card.setCreditLimit(30000);
 		Optional<CreditCardModel> optionCard=Optional.of(card);
-	//	Mockito.when(creditCardRepository.findById(Mockito.any())).thenReturn(optionCard);
 		Mockito.when(service.cardLimitUpdate(Mockito.anyInt())).thenReturn(card);
 		CreditCardModel creditCard =controller.cardLimitUpdate(card.getCreditCardNumber());
 		Assert.assertEquals(creditCard.getCreditLimit(), 30000);
@@ -106,7 +103,6 @@ public class TestCreditCardController {
 		card.setCreditLimit(30000);
 		int amount=2000;
 		Optional<CreditCardModel> optionCard=Optional.of(card);
-	//	Mockito.when(creditCardRepository.findById(Mockito.any())).thenReturn(optionCard);
 		Mockito.when(service.acceptDues(Mockito.anyInt(), Mockito.anyInt())).thenReturn(card);
 		CreditCardModel creditCard =controller.acceptDues(card.getCreditCardNumber(), amount);
 		Assert.assertEquals(creditCard.getCreditLimit(), 30000);
@@ -121,7 +117,6 @@ public class TestCreditCardController {
 		card.setStatus("cancel");
 		card.setCreditLimit(30000);
 		Optional<CreditCardModel> optionCard=Optional.of(card);
-	//	Mockito.when(creditCardRepository.findById(Mockito.any())).thenReturn(optionCard);
 		Mockito.when(service.cancelCard(Mockito.anyInt())).thenReturn(card.getStatus());
 		String cardStatus =controller.cancelCard(card.getCreditCardNumber());
 		Assert.assertEquals(cardStatus, "cancel");

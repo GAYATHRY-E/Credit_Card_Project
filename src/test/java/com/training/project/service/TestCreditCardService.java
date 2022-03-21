@@ -45,7 +45,6 @@ public class TestCreditCardService {
 		 user.setPhonenumber(321);
 		 user.setSalary(60000); 
 		 CreditCardModel card=creditCardService.createCard(user);
-		 //Mockito.when(creditCardService.createCard(Mockito.any())).thenReturn(creditCard);
 		 Assert.assertEquals(card.getUsername(),user.getUsername());	 
 	}
 	@Test
